@@ -5,6 +5,12 @@ ENV RUNTIME_PACKAGES="\
       build-essential\
       libpq-dev\
       nodejs\
+      make\
+      gcc\
+      libc-dev\
+      libmariadb-dev-compat\
+      libmariadb-dev\
+      git\
       curl\
       vim\
       libyaml-dev\
