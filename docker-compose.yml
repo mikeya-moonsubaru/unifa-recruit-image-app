@@ -1,0 +1,31 @@
+services:
+  image-app:
+    build:
+      context: .
+      dockerfile: containers/rails/Dockerfile
+    env_file: image-app/.env
+    stdin_open: true
+    tty: true
+    ports:
+    - "3000:3000"
+    command: >
+      /bin/bash -c "rm -f tmp/pids/server.pid &&
+      bundle exec rails s"
+    volumes:
+      - ./image-app:/myapp
+      - sockets-data:/myapp/tmp/sockets
+      - bundle:/usr/local/bundle
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-store:/var/lib/mysql
+volumes:
+  db-store:
+  sockets-data:
+  bundle:
