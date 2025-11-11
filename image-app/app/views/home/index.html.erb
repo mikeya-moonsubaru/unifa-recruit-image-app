@@ -1,15 +1,18 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-
 <%= button_to "MyTweetAppと連携", oauth_tweet_authorize_path, method: :get %>
-      <%= tweet_authenticated? %>
 
-<div>
-  <% ["aa", "bb", "cc"].each do |title| %>
-    <div>
-      <%= title %>
+<h1>写真一覧</h1>
+
+<div class="container">
+  <% if @images.empty? %>
+    <p>写真がありません</p>
+  <% end %>
+
+  <% @images.each do |image| %>
+    <div class="grid-item">
+      <p><%= image.title %></p>
+      <%= image_tag image.display_url %>
       <% if tweet_authenticated? %>
-        <%= button_to "ツイートする", tweet_path, method: :post, params: { title: title } %>
+        <%= button_to "ツイートする", tweet_path, method: :post, params: { title: image.title, url: image.display_url } %>
       <% end %>
     </div>
   <% end %>

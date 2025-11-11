@@ -8,3 +8,14 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px;
+  gap: 20px;
+}
+
+.grid-item {
+  text-align: center;
+}
