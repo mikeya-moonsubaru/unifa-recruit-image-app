@@ -1,5 +1,5 @@
 module ApplicationHelper
   def tweet_authenticated?
-    session[:tweet_access_token].present?
+    Current.user&.user_connection&.tweet_access_token.present?
   end
 end

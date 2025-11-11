@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_11_023519) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_11_043208) do
   create_table "sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -18,6 +18,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_11_023519) do
     t.string "user_agent"
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "user_connections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "tweet_access_token"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_user_connections_on_user_id"
   end
 
   create_table "user_credentials", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -36,5 +44,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_11_023519) do
   end
 
   add_foreign_key "sessions", "users"
+  add_foreign_key "user_connections", "users"
   add_foreign_key "user_credentials", "users"
 end

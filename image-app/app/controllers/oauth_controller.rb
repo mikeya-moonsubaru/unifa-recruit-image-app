@@ -35,8 +35,11 @@ class OauthController < ApplicationController
       raise "Failed to get access token: #{response.body}"
     end
 
+    # ※値は同じ
     @access_token = JSON.parse(response.body)["access_token"]
-    session[:tweet_access_token] = @access_token
+    UserConnection.find_or_create_by!(user: Current.user).
+      update!(tweet_access_token: @access_token)
+
     redirect_to root_path
   end
 end
