@@ -10,7 +10,7 @@
     <%= csp_meta_tag %>
 
     <% if authenticated? %>
-      <p><%= Current.user.email_address %></p>
+      <p><%= Current.user.user_credential.email_address %></p>
       <%= button_to "Sign out", session_path, method: :delete %>
     <% end %>
 

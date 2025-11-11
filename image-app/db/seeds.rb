@@ -9,6 +9,12 @@
 #   end
 
 User.where(id: [1,2,3]).destroy_all
-User.create(id: 1, email_address: "dev@example.com", password: "password1")
-User.create(id: 2, email_address: "dev2@example.com", password: "password2")
-User.create(id: 3, email_address: "dev3@example.com", password: "password3")
+User.create(id: 1).tap do |user|
+  user.build_user_credential(email_address: "dev@example.com", password: "password1").save!
+end
+User.create(id: 2).tap do |user|
+  user.build_user_credential(email_address: "dev2@example.com", password: "password2").save!
+end
+User.create(id: 3).tap do |user|
+  user.build_user_credential(email_address: "dev3@example.com", password: "password3").save!
+end
