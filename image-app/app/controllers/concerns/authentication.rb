@@ -47,6 +47,7 @@ module Authentication
 
     def terminate_session
       Current.session.destroy
+      reset_session # 最初グローバルセッションにアクセストークンが入ってしまったので
       cookies.delete(:session_id)
     end
 end

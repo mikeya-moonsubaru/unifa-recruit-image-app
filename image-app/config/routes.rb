@@ -16,4 +16,6 @@ Rails.application.routes.draw do
 
   get "oauth/tweet_authorize", to: "oauth#tweet_authorize"
   get "oauth/callback", to: "oauth#callback"
+
+  post "tweet", to: "tweet#create"
 end
