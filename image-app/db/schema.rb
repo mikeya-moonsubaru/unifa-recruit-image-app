@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_11_043208) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_11_051751) do
+  create_table "images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "path", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_images_on_user_id"
+  end
+
   create_table "sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -43,6 +52,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_11_043208) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "images", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "user_connections", "users"
   add_foreign_key "user_credentials", "users"
