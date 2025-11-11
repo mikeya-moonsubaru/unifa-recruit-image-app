@@ -13,4 +13,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  get "oauth/tweet_authorize", to: "oauth#tweet_authorize"
+  get "oauth/callback", to: "oauth#callback"
 end
