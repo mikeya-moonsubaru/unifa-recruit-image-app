@@ -4,8 +4,8 @@ RSpec.describe Tweet::CreateForImageUsecase do
   describe '#call' do
     subject { described_class.new(user, image.id) }
 
-    let(:user) { create(:user, :with_connection) }
-    let(:image) { create(:image, user: user) }
+    let!(:user) { create(:user, :with_connection) }
+    let!(:image) { create(:image, user: user) }
 
     context "正常系" do
       it "ツイートする" do
