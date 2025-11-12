@@ -9,7 +9,9 @@
 
   <% @images.each do |image| %>
     <div class="grid-item">
-      <p><%= image.title %></p>
+      <div>
+        <%= image.title %>
+      </div>
       <%= image_tag image.display_url %>
       <% if tweet_authenticated? %>
         <%= button_to "ツイートする", tweet_path, method: :post, params: { title: image.title, url: image.display_url } %>
