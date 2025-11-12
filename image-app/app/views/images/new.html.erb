@@ -1,26 +1,28 @@
 <h1>写真アップロード</h1>
 
-<div>
-  <div>
+<div class="p-5">
+  <div class="p-5">
     <%= form_with model: @image, url: images_path, method: :post, html: { id: "image-form" } do |form| %>
-      <div>
+      <div class="p-5">
         <%= form.label :title, "タイトル" %>
         <%= form.text_field :title, id: "image-title" %>
       </div>
-      <div>
+      <div class="p-5">
         <%= form.label :file, "画像" %>
         <%= form.file_field :file, id: "image-file" %>
-        <div id="file-errors" class="field-error" style="color:#c00"></div>
       </div>
-      <div>
+      <div class="p-5">
+        <div id="form-errors" style="color:#c00"></div>
+      </div>
+      <div class="p-5">
         <%= form.submit "アップロード", type: "button", id: "submit-btn" %>
       </div>
     <% end %>
   </div>
+</div>
 
-  <div>
-    <%= link_to "キャンセル", root_path %>
-  </div>
+<div style="margin-top: 10px;">
+  <%= link_to "キャンセル", root_path %>
 </div>
 
 <script>
@@ -29,7 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("image-file");
   const titleInput = document.getElementById("image-title");
   const submitBtn = document.getElementById("submit-btn");
-  const errBox = document.getElementById("file-errors");
+  const errBox = document.getElementById("form-errors");
+
+  fileInput.addEventListener("change", (e) => {
+    errBox.textContent = "";
+  });
+
+  titleInput.addEventListener("input", (e) => {
+    errBox.textContent = "";
+  });
 
   submitBtn.addEventListener("click", async (e) => {
     submitBtn.disabled = true;
