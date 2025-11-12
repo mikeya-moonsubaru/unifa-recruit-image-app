@@ -1,5 +1,33 @@
 # unifa-recruit-image-app
 
+# 環境構築
+```
+cp image-app/.env.sample image-app/.env
+```
+.envの下記を埋める:
+- TWEET_BASE_URL: OAuth連携テストアプリのURL(http://ホスト名)
+- OAUTH_CLIENT_ID: 払い出されたclient_id
+- OAUTH_CLIENT_SECRET: 払い出されたclient_secret
+
+```
+docker-compose build
+```
+
+```
+docker-compose run --no-deps --rm image-app rails db:create
+docker-compose run --no-deps --rm image-app rails db:migrate
+docker-compose run --no-deps --rm image-app rails db:seed
+```
+
+```
+docker-compose up
+```
+
+-> http://localhost:3000/
+
+ログインユーザ情報は image-app/db/seeds.rb をご覧ください。
+
+# 提出事項
 ## 条件
 - [x] 可能であれば「Ruby on Rails」を使用
 - [x] 使用するプログラミング言語、フレームワークのバージョンは問わない。ただし、現在利用できるものにしてください。
@@ -56,13 +84,13 @@
 ## 7. 連携アプリケーションへツイートを投稿
 - [x] セッションに連携アプリのアクセストークンがセットされている場合、各画像に「ツイートする」ボタンを表示
 - ツイートするボタンを押した場合、以下の情報を含むツイートを連携アプリに作成する
-  [x] 画像の「タイトル」
-  [x] 画像を表示するための「URL」（imgタグに指定されているURL、localhost:3000のURLでOK）
+  - [x] 画像の「タイトル」
+  - [x] 画像を表示するための「URL」（imgタグに指定されているURL、localhost:3000のURLでOK）
 - [x] ツイート後、「写真一覧画面」へリダイレクト
 
 
 # 提出にあたっての補足
 - 条件: gemを追加しました。 bcrypt, faraday, factory_bot(テスト、開発環境データ準備用), rspec(およびテスト用モジュール)
-- 1.ログインページの作成: メールアドレス・パスワードの未入力はsubmitさせず、formによるブラウザ上のメッセージを出す。
-- 3. 写真アップロード画面: ActiveStorage未使用でエラー時の画像持ち回しに悩み、画面側でバリデーション。
-- 7. 連携アプリケーションへツイートを投稿: ユーザごとのセッションへの保存に悩み、DBに保存。
+- 1:ログインページの作成: メールアドレス・パスワードの未入力はsubmitさせず、formによるブラウザ上のメッセージを出す。
+- 3:写真アップロード画面: ActiveStorage未使用でエラー時の画像持ち回しに悩み、画面側でバリデーション。
+- 7:連携アプリケーションへツイートを投稿: ユーザごとのセッションへの保存に悩み、DBに保存。
