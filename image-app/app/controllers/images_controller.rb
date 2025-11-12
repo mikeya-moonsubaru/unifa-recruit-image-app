@@ -8,8 +8,14 @@ class ImagesController < ApplicationController
   end
 
   def create
-    Images::CreateUsecase.new(Current.user, params[:image]).call
+    permitted_params = params.require(:image).permit(:title, :file)
+    result = Images::CreateUsecase.new(Current.user, permitted_params).call
 
-    redirect_to root_path, notice: "写真をアップロードしました"
+    if result == :ok
+      redirect_to root_path, notice: "写真をアップロードしました"
+    else
+      # TODO: サーバサイドエラーハンドリング
+      render :new, status: :unprocessable_entity
+    end
   end
 end

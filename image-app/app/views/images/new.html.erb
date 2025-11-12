@@ -2,17 +2,18 @@
 
 <div>
   <div>
-    <%= form_with model: @image, url: images_path, method: :post do |form| %>
+    <%= form_with model: @image, url: images_path, method: :post, html: { id: "image-form" } do |form| %>
       <div>
         <%= form.label :title, "タイトル" %>
-        <%= form.text_field :title %>
+        <%= form.text_field :title, id: "image-title" %>
       </div>
       <div>
         <%= form.label :file, "画像" %>
-        <%= form.file_field :file %>
+        <%= form.file_field :file, id: "image-file" %>
+        <div id="file-errors" class="field-error" style="color:#c00"></div>
       </div>
       <div>
-        <%= form.submit "アップロード" %>
+        <%= form.submit "アップロード", type: "button", id: "submit-btn" %>
       </div>
     <% end %>
   </div>
@@ -21,3 +22,34 @@
     <%= link_to "キャンセル", root_path %>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("image-form");
+  const fileInput = document.getElementById("image-file");
+  const titleInput = document.getElementById("image-title");
+  const submitBtn = document.getElementById("submit-btn");
+  const errBox = document.getElementById("file-errors");
+
+  submitBtn.addEventListener("click", async (e) => {
+    submitBtn.disabled = true;
+    errBox.textContent = "";
+
+    try {
+      const title = titleInput.value;
+      if (!title) { errBox.textContent = "タイトルを入力してください"; return; }
+      if (title.length > 30) { errBox.textContent = "タイトルは30文字以内で入力してください"; return; }
+
+      const file = fileInput.files[0];
+      if (!file) { errBox.textContent = "ファイルを選択してください"; return; }
+
+      form.requestSubmit();
+    } catch (e) {
+      errBox.textContent = "エラーが発生しました";
+      console.error(e);
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+});
+</script>

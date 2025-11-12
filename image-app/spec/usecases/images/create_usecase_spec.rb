@@ -20,21 +20,21 @@ RSpec.describe Images::CreateUsecase do
     context "バリデーションエラー: 「タイトル」が未入力の場合" do
       let!(:params) { { title: "", file: file } }
       it "エラーになる" do
-        expect(subject.call).to eq(:error)
+        expect { subject.call }.to raise_error("タイトルが未入力です")
       end
     end
 
     context "バリデーションエラー: 「画像」が未選択の場合" do
       let!(:params) { { title: "Test Image", file: nil } }
       it "エラーになる" do
-        expect(subject.call).to eq(:error)
+        expect { subject.call }.to raise_error("画像が未選択です")
       end
     end
 
     context "バリデーションエラー: 「タイトル」の文字数が30文字を超えている場合" do
       let!(:params) { { title: "a" * 31, file: file } }
       it "エラーになる" do
-        expect(subject.call).to eq(:error)
+        expect { subject.call }.to raise_error("タイトルは30文字以内で入力してください")
       end
     end
   end

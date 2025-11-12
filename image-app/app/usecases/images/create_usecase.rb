@@ -6,6 +6,8 @@ module Images
     end
 
     def call
+      validate_params
+
       title = @params[:title]
 
       file = @params[:file]
@@ -22,5 +24,22 @@ module Images
 
       :ok
     end
+
+    private
+
+      # 画面でチェックしているので通常はエラーにならない
+      def validate_params
+        if @params[:title].blank?
+          raise "タイトルが未入力です"
+        end
+
+        if @params[:file].blank?
+          raise "画像が未選択です"
+        end
+
+        if @params[:title].length > 30
+          raise "タイトルは30文字以内で入力してください"
+        end
+      end
   end
 end
