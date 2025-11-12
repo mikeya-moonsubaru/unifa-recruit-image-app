@@ -1,0 +1,23 @@
+<h1>写真アップロード</h1>
+
+<div>
+  <div>
+    <%= form_with model: @image, url: images_path, method: :post do |form| %>
+      <div>
+        <%= form.label :title, "タイトル" %>
+        <%= form.text_field :title %>
+      </div>
+      <div>
+        <%= form.label :file, "画像" %>
+        <%= form.file_field :file %>
+      </div>
+      <div>
+        <%= form.submit "アップロード" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= link_to "キャンセル", root_path %>
+  </div>
+</div>

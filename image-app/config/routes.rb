@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   get "oauth/callback", to: "oauth#callback"
 
   post "tweet", to: "tweet#create"
+
+  resources :images, only: [:new, :create]
 end
