@@ -14,7 +14,7 @@
       </div>
       <%= image_tag image.display_url %>
       <% if tweet_authenticated? %>
-        <%= button_to "ツイートする", tweet_path, method: :post, params: { title: image.title, url: image.display_url } %>
+        <%= button_to "ツイートする", tweet_path, method: :post, params: { image_id: image.id } %>
       <% end %>
     </div>
   <% end %>

@@ -1,7 +1,8 @@
 class TweetController < ApplicationController
   def create
-    text = "タイトル: #{params[:title]}"
-    image_url = "http://localhost:3000/images/1.jpg"
+    image = Image.find(params[:image_id])
+    text = image.title
+    image_url = image.display_url
     url = "#{ENV.fetch("TWEET_BASE_URL")}/api/tweets"
     access_token = Current.user.user_connection.tweet_access_token
 
@@ -10,7 +11,7 @@ class TweetController < ApplicationController
       req.headers["Authorization"] = "Bearer #{access_token}"
       req.body = {
         text: text,
-        image_url: image_url,
+        url: image_url,
       }.to_json
     end
 
